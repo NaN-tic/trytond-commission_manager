@@ -1,0 +1,87 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:commission.manager:"
+msgid ""
+"Invalid formula \"%(formula)s\" in commission manager \"%(line)s\" with "
+"exception \"%(exception)s\"."
+msgstr ""
+"La fórmula \"%(formula)s\" en els responsables de comissions \"%(line)s\" no"
+" és correcte generant l'excepció \"%(exception)s\"."
+
+msgctxt "field:commission.agent,manager:"
+msgid "Manager"
+msgstr "Responsable"
+
+msgctxt "field:commission.manager,agent:"
+msgid "Agent"
+msgstr "Agent"
+
+msgctxt "field:commission.manager,agents:"
+msgid "Agents"
+msgstr "Agents"
+
+msgctxt "field:commission.manager,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:commission.manager,create_date:"
+msgid "Create Date"
+msgstr "Data de creació"
+
+msgctxt "field:commission.manager,create_uid:"
+msgid "Create User"
+msgstr "Usuari de creació"
+
+msgctxt "field:commission.manager,formula:"
+msgid "Formula"
+msgstr "Fórmula"
+
+msgctxt "field:commission.manager,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:commission.manager,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:commission.manager,write_date:"
+msgid "Write Date"
+msgstr "Data de modificació"
+
+msgctxt "field:commission.manager,write_uid:"
+msgid "Write User"
+msgstr "Usuari de modificació"
+
+msgctxt "help:commission.manager,formula:"
+msgid ""
+"Python expression that will be evaluated with:\n"
+"- amount: the original amount"
+msgstr ""
+"Expressió de python que s'evaluarà amb:\n"
+"- amount: L'import original."
+
+msgctxt "model:commission.manager,name:"
+msgid "Commission Manager"
+msgstr "Responsables comissions"
+
+msgctxt "model:ir.action,name:act_manager_form"
+msgid "Managers"
+msgstr "Responsables"
+
+msgctxt "model:ir.action,name:act_open_agent_form"
+msgid "Agents"
+msgstr "Agents"
+
+msgctxt "model:ir.ui.menu,name:menu_manager_form"
+msgid "Managers"
+msgstr "Responsables"
+
+msgctxt "view:commission.manager:"
+msgid "Manager"
+msgstr "Responsable"
+
+msgctxt "view:commission.manager:"
+msgid "Managers"
+msgstr "Responsables"

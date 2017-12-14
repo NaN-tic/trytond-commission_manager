@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <!-- commission manager -->
+        <record model="ir.ui.view" id="manager_view_form">
+            <field name="model">commission.manager</field>
+            <field name="type">form</field>
+            <field name="name">manager_form</field>
+        </record>
+        <record model="ir.ui.view" id="manager_view_list">
+            <field name="model">commission.manager</field>
+            <field name="type">tree</field>
+            <field name="name">manager_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_manager_form">
+            <field name="name">Managers</field>
+            <field name="res_model">commission.manager</field>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_manager_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="manager_view_list"/>
+            <field name="act_window" ref="act_manager_form"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_manager_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="manager_view_form"/>
+            <field name="act_window" ref="act_manager_form"/>
+        </record>
+        <menuitem parent="commission.menu_configuration"
+            action="act_manager_form" sequence="20"
+            id="menu_manager_form"/>
+
+        <record model="ir.model.access" id="access_agent">
+            <field name="model" search="[('model', '=', 'commission.manager')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_manager_commission_admin">
+            <field name="model" search="[('model', '=', 'commission.manager')]"/>
+            <field name="group" ref="commission.group_commission_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_open_agent_form">
+            <field name="name">Agents</field>
+            <field name="res_model">commission.agent</field>
+            <field name="domain"
+                eval="[('manager', 'in', Eval('active_ids'))]"
+                pyson="1"/>
+            <!-- TODO 4.7
+            <field name="domain"
+                eval="[If(Eval('active_ids', []) == [Eval('active_id')], ('bank_lines.move_line', '=', Eval('active_id')), ('bank_lines.move_line', 'in', Eval('active_ids')))]"
+                pyson="1"/>
+            -->
+        </record>
+        <record model="ir.action.keyword" id="act_open_agent_keyword1">
+            <field name="keyword">form_relate</field>
+            <field name="model">commission.manager,-1</field>
+            <field name="action" ref="act_open_agent_form"/>
+        </record>
+
+        <!-- commission agent -->
+        <record model="ir.ui.view" id="agent_view_form">
+            <field name="model">commission.agent</field>
+            <field name="inherit" ref="commission.agent_view_form"/>
+            <field name="name">agent_form</field>
+        </record>
+        <record model="ir.ui.view" id="agent_view_list">
+            <field name="model">commission.agent</field>
+            <field name="inherit" ref="commission.agent_view_list"/>
+            <field name="name">agent_list</field>
+        </record>
+
+    </data>
+</tryton>

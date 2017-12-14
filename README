@@ -1,0 +1,20 @@
+nantic_commission_manager
+=========================
+
+The commission_manager module of the Tryton application platform.
+
+Installing
+----------
+
+See INSTALL
+
+
+License
+-------
+
+See LICENSE
+
+Copyright
+---------
+
+See COPYRIGHT

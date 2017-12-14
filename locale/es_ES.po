@@ -1,0 +1,87 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:commission.manager:"
+msgid ""
+"Invalid formula \"%(formula)s\" in commission manager \"%(line)s\" with "
+"exception \"%(exception)s\"."
+msgstr ""
+"La fórmula \"%(formula)s\" en los responsables de comisiones \"%(line)s\" no"
+" es  correcta generando la excepción \"%(exception)s\"."
+
+msgctxt "field:commission.agent,manager:"
+msgid "Manager"
+msgstr "Responsable"
+
+msgctxt "field:commission.manager,agent:"
+msgid "Agent"
+msgstr "Agente"
+
+msgctxt "field:commission.manager,agents:"
+msgid "Agents"
+msgstr "Agentes"
+
+msgctxt "field:commission.manager,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:commission.manager,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:commission.manager,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:commission.manager,formula:"
+msgid "Formula"
+msgstr "Fórmula"
+
+msgctxt "field:commission.manager,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:commission.manager,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:commission.manager,write_date:"
+msgid "Write Date"
+msgstr "Fecha de modificación"
+
+msgctxt "field:commission.manager,write_uid:"
+msgid "Write User"
+msgstr "Usuario de modificación"
+
+msgctxt "help:commission.manager,formula:"
+msgid ""
+"Python expression that will be evaluated with:\n"
+"- amount: the original amount"
+msgstr ""
+"Expresión de python que se evaluará con:\n"
+"- amount: El import original."
+
+msgctxt "model:commission.manager,name:"
+msgid "Commission Manager"
+msgstr "Responsable comisiones"
+
+msgctxt "model:ir.action,name:act_manager_form"
+msgid "Managers"
+msgstr "Responsables"
+
+msgctxt "model:ir.action,name:act_open_agent_form"
+msgid "Agents"
+msgstr "Agentes"
+
+msgctxt "model:ir.ui.menu,name:menu_manager_form"
+msgid "Managers"
+msgstr "Responsables"
+
+msgctxt "view:commission.manager:"
+msgid "Manager"
+msgstr "Responsable"
+
+msgctxt "view:commission.manager:"
+msgid "Responsables"
+msgstr "Responsables"

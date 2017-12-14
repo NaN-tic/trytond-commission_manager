@@ -1,0 +1,234 @@
+===========================
+Commission Manager Scenario
+===========================
+
+Imports::
+
+    >>> import datetime
+    >>> from dateutil.relativedelta import relativedelta
+    >>> from decimal import Decimal
+    >>> from proteus import config, Model, Wizard
+    >>> from trytond.modules.company.tests.tools import create_company, \
+    ...     get_company
+    >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
+    ...     create_chart, get_accounts, create_tax, set_tax_code
+    >>> from trytond.modules.account_invoice.tests.tools import \
+    ...     set_fiscalyear_invoice_sequences, create_payment_term
+    >>> today = datetime.date.today()
+
+Create database::
+
+    >>> config = config.set_trytond()
+    >>> config.pool.test = True
+
+Install commission::
+
+    >>> Module = Model.get('ir.module')
+    >>> module, = Module.find([('name', '=', 'commission_manager')])
+    >>> module.click('install')
+    >>> Wizard('ir.module.install_upgrade').execute('upgrade')
+
+Create company::
+
+    >>> _ = create_company()
+    >>> company = get_company()
+
+Reload the context::
+
+    >>> User = Model.get('res.user')
+    >>> config._context = User.get_preferences(True, config.context)
+
+Create fiscal year::
+
+    >>> fiscalyear = set_fiscalyear_invoice_sequences(
+    ...     create_fiscalyear(company))
+    >>> fiscalyear.click('create_period')
+
+Create chart of accounts::
+
+    >>> _ = create_chart(company)
+    >>> accounts = get_accounts(company)
+
+Create customer::
+
+    >>> Party = Model.get('party.party')
+    >>> customer = Party(name='Customer')
+    >>> customer.save()
+
+Create commission product::
+
+    >>> Uom = Model.get('product.uom')
+    >>> Template = Model.get('product.template')
+    >>> Product = Model.get('product.product')
+    >>> unit, = Uom.find([('name', '=', 'Unit')])
+    >>> commission_product = Product()
+    >>> template = Template()
+    >>> template.name = 'Commission'
+    >>> template.default_uom = unit
+    >>> template.type = 'service'
+    >>> template.list_price = Decimal(0)
+    >>> template.cost_price = Decimal(0)
+    >>> template.account_expense = accounts['expense']
+    >>> template.account_revenue = accounts['revenue']
+    >>> template.save()
+    >>> commission_product.template = template
+    >>> commission_product.save()
+
+Create commission plan::
+
+    >>> Plan = Model.get('commission.plan')
+    >>> plan = Plan(name='Plan')
+    >>> plan.commission_product = commission_product
+    >>> plan.commission_method = 'payment'
+    >>> line = plan.lines.new()
+    >>> line.formula = 'amount * 0.1'
+    >>> plan.save()
+
+Create payment term::
+
+    >>> payment_term = create_payment_term()
+    >>> payment_term.save()
+
+Create manager::
+
+    >>> Agent = Model.get('commission.agent')
+    >>> Manager = Model.get('commission.manager')
+    >>> party_manager = Party(name='Agent Manager')
+    >>> party_manager.supplier_payment_term = payment_term
+    >>> party_manager.save()
+    >>> agent_manager = Agent(party=party_manager)
+    >>> agent_manager.type_ = 'agent'
+    >>> agent_manager.plan = plan
+    >>> agent_manager.currency = company.currency
+    >>> agent_manager.save()
+
+    >>> manager = Manager()
+    >>> manager.agent = agent_manager
+    >>> manager.formula = 'amount*1.50'
+    >>> manager.save()
+
+Create some agents::
+
+    >>> agent_party = Party(name='Agent')
+    >>> agent_party.supplier_payment_term = payment_term
+    >>> agent_party.save()
+    >>> agent = Agent(party=agent_party)
+    >>> agent.type_ = 'agent'
+    >>> agent.plan = plan
+    >>> agent.currency = company.currency
+    >>> agent.save()
+
+    >>> agent_party2 = Party(name='Agent 2')
+    >>> agent_party2.supplier_payment_term = payment_term
+    >>> agent_party2.save()
+    >>> agent2 = Agent(party=agent_party2)
+    >>> agent2.type_ = 'agent'
+    >>> agent2.plan = plan
+    >>> agent2.currency = company.currency
+    >>> agent2.manager = manager
+    >>> agent2.save()
+
+    >>> agent_party3 = Party(name='Agent 3')
+    >>> agent_party3.supplier_payment_term = payment_term
+    >>> agent_party3.save()
+    >>> agent3 = Agent(party=agent_party3)
+    >>> agent3.type_ = 'agent'
+    >>> agent3.plan = plan
+    >>> agent3.currency = company.currency
+    >>> agent3.manager = manager
+    >>> agent3.save()
+
+Create principal::
+
+    >>> principal_party = Party(name='Principal')
+    >>> principal_party.customer_payment_term = payment_term
+    >>> principal_party.save()
+    >>> principal = Agent(party=principal_party)
+    >>> principal.type_ = 'principal'
+    >>> principal.plan = plan
+    >>> principal.currency = company.currency
+    >>> principal.save()
+
+Create product sold::
+
+    >>> product = Product()
+    >>> template = Template()
+    >>> template.name = 'Product'
+    >>> template.default_uom = unit
+    >>> template.type = 'service'
+    >>> template.list_price = Decimal(100)
+    >>> template.cost_price = Decimal(100)
+    >>> template.account_expense = accounts['expense']
+    >>> template.account_revenue = accounts['revenue']
+    >>> template.principals.append(principal)
+    >>> template.save()
+    >>> product.template = template
+    >>> product.save()
+
+Create agent invoice::
+
+    >>> Commission = Model.get('commission')
+    >>> Invoice = Model.get('account.invoice')
+    >>> invoice = Invoice()
+    >>> invoice.party = customer
+    >>> invoice.payment_term = payment_term
+    >>> invoice.agent = agent
+    >>> line = invoice.lines.new()
+    >>> line.product = product
+    >>> line.quantity = 1
+    >>> line.unit_price = Decimal(100)
+    >>> invoice.save()
+    >>> invoice.click('post')
+    >>> line, = invoice.lines
+    >>> len(line.commissions) == 2
+    True
+    >>> com1, com2 = line.commissions
+    >>> com1.agent == agent
+    True
+    >>> com2.agent == principal
+    True
+    >>> coms_manager = Commission.find([('agent', '=', agent_manager.id)])
+    >>> len(coms_manager) == 0
+    True
+
+    >>> invoice = Invoice()
+    >>> invoice.party = customer
+    >>> invoice.payment_term = payment_term
+    >>> invoice.agent = agent2
+    >>> line = invoice.lines.new()
+    >>> line.product = product
+    >>> line.quantity = 1
+    >>> line.unit_price = Decimal(100)
+    >>> invoice.save()
+    >>> invoice.click('post')
+    >>> line, = invoice.lines
+    >>> len(line.commissions) == 2
+    True
+    >>> com1, com2 = line.commissions
+    >>> origin = 'commission,%s' % com1.id
+    >>> com_manager, = Commission.find([('agent', '=', agent_manager.id), ('origin', '=', origin)])
+    >>> com_manager.amount == Decimal(15.00)
+    True
+    >>> com1.amount == Decimal(10.00)
+    True
+
+    >>> invoice = Invoice()
+    >>> invoice.party = customer
+    >>> invoice.payment_term = payment_term
+    >>> invoice.agent = agent2
+    >>> line = invoice.lines.new()
+    >>> line.product = product
+    >>> line.quantity = -1
+    >>> line.unit_price = Decimal(100)
+    >>> invoice.save()
+    >>> invoice.click('post')
+    >>> line, = invoice.lines
+    >>> len(line.commissions) == 2
+    True
+    >>> com1, com2 = line.commissions
+    >>> origin = 'commission,%s' % com1.id
+    >>> com_manager, = Commission.find([('agent', '=', agent_manager.id), ('origin', '=', origin)])
+    >>> com_manager.amount == Decimal(-15.00)
+    True
+    >>> com1.amount == Decimal(-10.00)
+    True
