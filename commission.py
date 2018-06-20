@@ -101,6 +101,11 @@ class Commission:
         manager = self.agent.manager
         context = manager.get_context_formula(self.amount, self.product)
         amount = manager.get_amount(**context)
+        if amount:
+            digits = Commission.amount.digits
+            amount = amount.quantize(Decimal(str(10.0 ** -digits[1])))
+        if not amount:
+            return
 
         commission = Commission()
         commission.origin = self
@@ -108,5 +113,5 @@ class Commission:
             commission.date = self.date
         commission.agent = manager.agent
         commission.product = self.product
-        commission.amount = amount if self.amount > 0 else amount
+        commission.amount = amount
         return commission
