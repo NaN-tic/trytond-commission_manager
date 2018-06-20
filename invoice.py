@@ -19,7 +19,8 @@ class Invoice:
         for commission in all_commissions:
             if commission.agent.manager:
                 commission_manager = commission.get_commission_manager()
-                commissions_manager.append(commission_manager)
+                if commission_manager:
+                    commissions_manager.append(commission_manager)
 
         if commissions_manager:
             Commission.save(commissions_manager)
