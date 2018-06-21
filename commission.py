@@ -42,6 +42,9 @@ class Manager(ModelSQL, ModelView):
     def default_formula():
         return 'amount'
 
+    def get_rec_name(self, name):
+        return self.agent.rec_name
+
     @classmethod
     def validate(cls, lines):
         super(Manager, cls).validate(lines)
