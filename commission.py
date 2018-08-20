@@ -64,7 +64,7 @@ class Manager(ModelSQL, ModelView):
         try:
             if not isinstance(self.get_amount(**context), Decimal):
                 raise ValueError
-        except ValueError, exception:
+        except ValueError as exception:
             self.raise_user_error('invalid_formula', {
                     'formula': self.formula,
                     'line': self.rec_name,
@@ -77,15 +77,13 @@ class Manager(ModelSQL, ModelView):
         return simple_eval(decistmt(self.formula), **context)
 
 
-class Agent:
-    __metaclass__ = PoolMeta
+class Agent(metaclass=PoolMeta):
     __name__ = 'commission.agent'
     manager = fields.Many2One('commission.manager', 'Manager',
         ondelete='CASCADE', select=True)
 
 
-class Commission:
-    __metaclass__ = PoolMeta
+class Commission(metaclass=PoolMeta):
     __name__ = 'commission'
 
     @classmethod
