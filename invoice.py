@@ -29,5 +29,5 @@ class InvoiceLine:
             self.raise_user_error('manager_without_plan', {
                         'manager': manager.rec_name,
                         })
-        used += [(manager.agent, manager.agent.plan)]
+        used.append((manager.agent, manager.agent.plan))
         return used
