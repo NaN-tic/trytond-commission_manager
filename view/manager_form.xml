@@ -6,8 +6,6 @@ this repository contains the full copyright notices and license terms. -->
     <field name="agent"/>
     <label name="company"/>
     <field name="company"/>
-    <label name="formula"/>
-    <field name="formula"/>
     <separator name="agents" colspan="4"/>
     <field name="agents" colspan="4"/>
 </form>

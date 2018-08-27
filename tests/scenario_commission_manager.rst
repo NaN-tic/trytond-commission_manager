@@ -105,7 +105,6 @@ Create manager::
 
     >>> manager = Manager()
     >>> manager.agent = agent_manager
-    >>> manager.formula = 'amount*1.50'
     >>> manager.save()
 
 Create some agents::
@@ -202,12 +201,11 @@ Create agent invoice::
     >>> invoice.save()
     >>> invoice.click('post')
     >>> line, = invoice.lines
-    >>> len(line.commissions) == 2
+    >>> len(line.commissions) == 3
     True
-    >>> com1, com2 = line.commissions
-    >>> origin = 'commission,%s' % com1.id
-    >>> com_manager, = Commission.find([('agent', '=', agent_manager.id), ('origin', '=', origin)])
-    >>> com_manager.amount == Decimal(15.00)
+    >>> com1, com2, com3 = line.commissions
+    >>> com_manager, = Commission.find([('agent', '=', agent_manager.id)])
+    >>> com_manager.amount == Decimal(10.00)
     True
     >>> com1.amount == Decimal(10.00)
     True
@@ -223,12 +221,10 @@ Create agent invoice::
     >>> invoice.save()
     >>> invoice.click('post')
     >>> line, = invoice.lines
-    >>> len(line.commissions) == 2
+    >>> len(line.commissions) == 3
     True
-    >>> com1, com2 = line.commissions
-    >>> origin = 'commission,%s' % com1.id
-    >>> com_manager, = Commission.find([('agent', '=', agent_manager.id), ('origin', '=', origin)])
-    >>> com_manager.amount == Decimal(-15.00)
+    >>> com1, com2, com3 = line.commissions
+    >>> com3.amount == Decimal(-10.00)
     True
     >>> com1.amount == Decimal(-10.00)
     True
