@@ -11,5 +11,5 @@ def register():
         commission.Manager,
         commission.Agent,
         commission.Commission,
-        invoice.Invoice,
+        invoice.InvoiceLine,
         module='commission_manager', type_='model')
