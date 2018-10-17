@@ -19,6 +19,8 @@ class InvoiceLine:
             })
 
     def agent_plans_used(self):
+        # Warning: we have a patch that replace property method
+        # in commission module to allow inherit method
         used = super(InvoiceLine, self).agent_plans_used()
         if not (self.invoice.agent and self.invoice.agent.manager):
             return used
