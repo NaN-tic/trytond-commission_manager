@@ -39,9 +39,7 @@ class Manager(ModelSQL, ModelView):
         return self.agent.rec_name
 
 
-class Agent:
-    __metaclass__ = PoolMeta
+class Agent(metaclass=PoolMeta):
     __name__ = 'commission.agent'
     manager = fields.Many2One('commission.manager', 'Manager',
         ondelete='CASCADE', select=True)
-

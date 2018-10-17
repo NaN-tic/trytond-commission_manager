@@ -12,7 +12,6 @@ class InvoiceLine(metaclass=PoolMeta):
     @classmethod
     def __setup__(cls):
         super(InvoiceLine, cls).__setup__()
-
         cls._error_messages.update({
                 'manager_without_plan': ('No commission plan assigned '
                     'for manager "%s"'),
