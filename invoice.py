@@ -1,6 +1,8 @@
 # This file is part of Tryton.  The COPYRIGHT file at the top level of
 # this repository contains the full copyright notices and license terms.
 from trytond.pool import PoolMeta
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['InvoiceLine']
 
@@ -8,14 +10,6 @@ __all__ = ['InvoiceLine']
 class InvoiceLine(metaclass=PoolMeta):
     __name__ = 'account.invoice.line'
     __metaclass__ = PoolMeta
-
-    @classmethod
-    def __setup__(cls):
-        super(InvoiceLine, cls).__setup__()
-        cls._error_messages.update({
-                'manager_without_plan': ('No commission plan assigned '
-                    'for manager "%s"'),
-            })
 
     @property
     def agent_plans_used(self):
@@ -26,8 +20,8 @@ class InvoiceLine(metaclass=PoolMeta):
         manager = self.invoice.agent.manager
 
         if not manager.agent.plan:
-            self.raise_user_error('manager_without_plan', {
-                        'manager': manager.rec_name,
-                        })
+            raise UserError(gettext(
+                'commission_manager.manager_without_plan',
+                        manager=manager.rec_name))
         used.append((manager.agent, manager.agent.plan))
         return used

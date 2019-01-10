@@ -7,6 +7,8 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
 from trytond.tools import decistmt
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['Manager', 'Agent']
 
@@ -21,15 +23,6 @@ class Manager(ModelSQL, ModelView):
             ('id', '!=', Eval('agent')),
         ], depends=['agent'])
     company = fields.Many2One('company.company', 'Company', required=True)
-
-    @classmethod
-    def __setup__(cls):
-        super(Manager, cls).__setup__()
-        cls._error_messages.update({
-                'invalid_formula': ('Invalid formula "%(formula)s" in '
-                    'commission manager "%(line)s" with exception '
-                    '"%(exception)s".'),
-                })
 
     @staticmethod
     def default_company():
