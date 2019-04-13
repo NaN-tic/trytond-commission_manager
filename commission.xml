@@ -83,6 +83,7 @@ this repository contains the full copyright notices and license terms. -->
 
         <!-- ir.rule -->
         <record model="ir.rule.group" id="rule_group_commission_manager">
+            <field name="name">Commission Manager Rule</field>
             <field name="model" search="[('model', '=', 'commission.manager')]"/>
             <field name="global_p" eval="True"/>
         </record>
