@@ -7,9 +7,10 @@ from trytond.tests.test_tryton import ModuleTestCase
 from trytond.tests.test_tryton import suite as test_suite
 from trytond.tests.test_tryton import doctest_setup, doctest_teardown
 from trytond.tests.test_tryton import doctest_checker
+from trytond.modules.company.tests import CompanyTestMixin
 
 
-class CommissionManagerTestCase(ModuleTestCase):
+class CommissionManagerTestCase(CompanyTestMixin, ModuleTestCase):
     'Test Commission Manager module'
     module = 'commission_manager'
 
