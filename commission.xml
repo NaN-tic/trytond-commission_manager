@@ -89,7 +89,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <record model="ir.rule" id="rule_commission_manager1">
             <field name="domain"
-                eval="[('company', '=', Eval('user', {}).get('company', None))]"
+                eval="[('company', 'in', Eval('companies', []))]"
                 pyson="1"/>
             <field name="rule_group" ref="rule_group_commission_manager"/>
         </record>
