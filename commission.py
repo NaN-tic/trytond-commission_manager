@@ -30,4 +30,4 @@ class Manager(ModelSQL, ModelView):
 class Agent(metaclass=PoolMeta):
     __name__ = 'commission.agent'
     manager = fields.Many2One('commission.manager', 'Manager',
-        ondelete='CASCADE', select=True)
+        ondelete='CASCADE')
