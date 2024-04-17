@@ -36,14 +36,14 @@ this repository contains the full copyright notices and license terms. -->
             id="menu_manager_form"/>
 
         <record model="ir.model.access" id="access_agent">
-            <field name="model" search="[('model', '=', 'commission.manager')]"/>
+            <field name="model">commission.manager</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
         <record model="ir.model.access" id="access_manager_commission_admin">
-            <field name="model" search="[('model', '=', 'commission.manager')]"/>
+            <field name="model">commission.manager</field>
             <field name="group" ref="commission.group_commission_admin"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -84,7 +84,7 @@ this repository contains the full copyright notices and license terms. -->
         <!-- ir.rule -->
         <record model="ir.rule.group" id="rule_group_commission_manager">
             <field name="name">Commission Manager Rule</field>
-            <field name="model" search="[('model', '=', 'commission.manager')]"/>
+            <field name="model">commission.manager</field>
             <field name="global_p" eval="True"/>
         </record>
         <record model="ir.rule" id="rule_commission_manager1">
