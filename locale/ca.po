@@ -2,14 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:commission.manager:"
-msgid ""
-"Invalid formula \"%(formula)s\" in commission manager \"%(line)s\" with "
-"exception \"%(exception)s\"."
-msgstr ""
-"La fórmula \"%(formula)s\" en els responsables de comissions \"%(line)s\" no"
-" és correcte generant l'excepció \"%(exception)s\"."
-
 msgctxt "field:commission.agent,manager:"
 msgid "Manager"
 msgstr "Responsable"
