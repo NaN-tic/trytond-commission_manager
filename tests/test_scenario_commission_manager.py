@@ -157,7 +157,7 @@ class Test(unittest.TestCase):
         # Create agent invoice
         Commission = Model.get('commission')
         Invoice = Model.get('account.invoice')
-        invoice = Invoice()
+        invoice = Invoice(type='out')
         invoice.party = customer
         invoice.payment_term = payment_term
         invoice.agent = agent
@@ -174,7 +174,7 @@ class Test(unittest.TestCase):
         self.assertEqual(com2.agent, principal)
         coms_manager = Commission.find([('agent', '=', agent_manager.id)])
         self.assertEqual(len(coms_manager), 0)
-        invoice = Invoice()
+        invoice = Invoice(type='out')
         invoice.party = customer
         invoice.payment_term = payment_term
         invoice.agent = agent2
@@ -190,7 +190,7 @@ class Test(unittest.TestCase):
         com_manager, = Commission.find([('agent', '=', agent_manager.id)])
         self.assertEqual(com_manager.amount, Decimal(10.00))
         self.assertEqual(com1.amount, Decimal(10.00))
-        invoice = Invoice()
+        invoice = Invoice(type='out')
         invoice.party = customer
         invoice.payment_term = payment_term
         invoice.agent = agent2
