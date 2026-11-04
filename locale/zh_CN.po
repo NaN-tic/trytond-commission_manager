@@ -1,0 +1,108 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:commission.agent,manager:"
+msgid "Manager"
+msgstr "经理"
+
+msgctxt "field:commission.manager,agent:"
+msgid "Agent"
+msgstr "代理人"
+
+msgctxt "field:commission.manager,agents:"
+msgid "Agents"
+msgstr "代理人"
+
+msgctxt "field:commission.manager,company:"
+msgid "Company"
+msgstr "公司"
+
+msgctxt "field:commission.manager,create_date:"
+msgid "Create Date"
+msgstr "创建日期"
+
+msgctxt "field:commission.manager,create_uid:"
+msgid "Create User"
+msgstr "创建用户"
+
+msgctxt "field:commission.manager,formula:"
+msgid "Formula"
+msgstr "公式"
+
+msgctxt "field:commission.manager,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:commission.manager,rec_name:"
+msgid "Name"
+msgstr "名称"
+
+msgctxt "field:commission.manager,write_date:"
+msgid "Write Date"
+msgstr "修改日期"
+
+msgctxt "field:commission.manager,write_uid:"
+msgid "Write User"
+msgstr "修改用户"
+
+msgctxt "help:commission.manager,formula:"
+msgid ""
+"Python expression that will be evaluated with:\n"
+"- amount: the original amount"
+msgstr ""
+"计算时可使用以下变量的 Python 表达式：\n"
+"- amount：原始金额"
+
+msgctxt "model:commission.manager,name:"
+msgid "Commission Manager"
+msgstr "佣金经理"
+
+msgctxt "model:ir.action,name:act_manager_form"
+msgid "Managers"
+msgstr "经理"
+
+msgctxt "model:ir.action,name:act_open_agent_form"
+msgid "Agents"
+msgstr "代理人"
+
+msgctxt "model:ir.ui.menu,name:menu_manager_form"
+msgid "Managers"
+msgstr "经理"
+
+msgctxt "view:commission.manager:"
+msgid "Manager"
+msgstr "经理"
+
+msgctxt "view:commission.manager:"
+msgid "Managers"
+msgstr "经理"
+
+msgctxt "view:commission.manager:"
+msgid "Responsables"
+msgstr "负责人"
+
+msgctxt "model:commission.manager,string:"
+msgid "Commission Manager"
+msgstr "佣金经理"
+
+#, python-format
+msgctxt "model:ir.message,text:invalid_formula"
+msgid ""
+"Invalid formula \"%(formula)s\" in commission manager \"%(line)s\" with "
+"exception \"%(exception)s\"."
+msgstr "佣金经理“%(line)s”中的公式“%(formula)s”无效，异常为“%(exception)s”。"
+
+#, python-format
+msgctxt "model:ir.message,text:manager_without_plan"
+msgid "No commission plan assigned for manager \"%(manager)s\""
+msgstr "经理“%(manager)s”未分配佣金方案"
+
+msgctxt "model:ir.rule.group,name:rule_group_commission_manager"
+msgid "Commission Manager Rule"
+msgstr "佣金经理规则"
